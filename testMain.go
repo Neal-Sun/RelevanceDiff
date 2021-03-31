@@ -18,13 +18,13 @@ type TestSearchResponse struct {
 	Result  json.RawMessage `json:"result"`
 }
 
-var url = "http://localhost:9999/product/search"
+var url = "http://localhost:9998/product/search"
 
 func main() {
 	var productIn []ProductIn
 
 	// get search query
-	byteValue, err := ioutil.ReadFile("./query.json")
+	byteValue, err := ioutil.ReadFile("./query3.json")
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -46,6 +46,7 @@ func main() {
 	httpClient := &http.Client{}
 	for _, product := range productIn {
 		request := fmt.Sprintf(`{"query": "%s","size": %d,"from": %d, "business_type": "%s"}`, product.SearchKeyWord, 10, 0, "query_diff")
+		// request := fmt.Sprintf(`{"query": "%s","size": %d,"from": %d}`, product.SearchKeyWord, 10, 0)
 
 		var jsonStr = []byte(request)
 		var reqBuffer = bytes.NewBuffer(jsonStr)
